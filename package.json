@@ -1,0 +1,36 @@
+{
+  "name": "gymcare-management-system",
+  "version": "1.0.0",
+  "description": "GymCare - Complete Gym Membership Management System for College Project",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "test": "node backend/scripts/testSuite.js",
+    "seed:admin": "node backend/scripts/seedAdmin.js",
+    "seed:plans": "node backend/scripts/seedPlans.js",
+    "seed": "node backend/scripts/seedPlans.js && node backend/scripts/seedAdmin.js"
+  },
+  "keywords": [
+    "gym-management",
+    "express",
+    "mongodb",
+    "mongoose",
+    "college-project"
+  ],
+  "author": "B.Tech Computer Engineering",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "mongoose": "^8.10.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard – GymCare System</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+</head>
+<body>
+
+  <!-- Top Admin Navbar -->
+  <nav class="navbar" style="background-color: #07162b; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+    <div class="container nav-container">
+      <a href="/admin-dashboard.html" class="brand">
+        <span class="brand-icon" style="background: #2563EB;">🛡️</span>
+        <span>GymCare Admin</span>
+        <span class="badge badge-warning" style="margin-left: 8px;">Staff Console</span>
+      </a>
+
+      <div class="nav-actions">
+        <span id="admin-nav-greeting" style="font-size: 0.9rem; color: #CBD5E1; margin-right: 8px;">Admin Console</span>
+        <a href="/" class="btn btn-outline btn-sm">Main Site</a>
+        <button onclick="handleLogout()" class="btn btn-danger btn-sm">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Dashboard Container -->
+  <div class="dashboard-wrapper">
+    <!-- Admin Sidebar -->
+    <aside class="sidebar" style="background-color: #091a32;">
+      <div>
+        <div class="sidebar-header">
+          <p class="sidebar-user">Administrator Account:</p>
+          <h3 class="sidebar-name" id="admin-sidebar-name">Loading...</h3>
+          <span class="badge badge-warning" style="margin-top: 4px;">Super Admin</span>
+        </div>
+
+        <ul class="sidebar-nav">
+          <li>
+            <button class="tab-btn active" data-tab="admin-overview-tab">
+              <span>📊</span> Metrics Overview
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="admin-members-tab">
+              <span>👥</span> Member Management
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="admin-plans-tab">
+              <span>🏷️</span> Membership Plans
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="admin-memberships-tab">
+              <span>📋</span> All Memberships
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="admin-payments-tab">
+              <span>💳</span> Demo Payments
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="admin-attendance-tab">
+              <span>📅</span> Attendance Logging
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="admin-feedback-tab">
+              <span>💬</span> Member Feedback
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div style="font-size: 0.8rem; color: #64748B; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+        GymCare Management Portal<br>
+        B.Tech College Project Capstone
+      </div>
+    </aside>
+
+    <!-- Admin Main Content -->
+    <main class="main-content">
+      
+      <!-- TAB 1: METRICS OVERVIEW -->
+      <section id="admin-overview-tab" class="dashboard-tab active">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Administrative Dashboard</h1>
+            <p class="dashboard-subtitle">Real-time gym performance statistics, member counts, and demo transactions.</p>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-outline-primary btn-sm" onclick="loadAdminStats()">🔄 Refresh Metrics</button>
+          </div>
+        </div>
+
+        <!-- 6 Metrics Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Registered Members</p>
+              <h3 id="stat-total-members">0</h3>
+            </div>
+            <div class="stat-icon blue">👥</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Active Memberships</p>
+              <h3 id="stat-active-memberships">0</h3>
+            </div>
+            <div class="stat-icon green">✅</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Expired Memberships</p>
+              <h3 id="stat-expired-memberships">0</h3>
+            </div>
+            <div class="stat-icon orange">⏳</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Total Demo Revenue</p>
+              <h3 id="stat-total-revenue">₹0</h3>
+            </div>
+            <div class="stat-icon navy">💳</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Today's Check-ins</p>
+              <h3 id="stat-today-attendance">0</h3>
+            </div>
+            <div class="stat-icon green">📅</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Pending Feedback</p>
+              <h3 id="stat-pending-feedback">0</h3>
+            </div>
+            <div class="stat-icon orange">💬</div>
+          </div>
+        </div>
+
+        <!-- Quick Action Panels -->
+        <div class="grid-2" style="margin-top: 10px;">
+          <div class="card">
+            <h3 style="font-size: 1.2rem; color: var(--color-navy); margin-bottom: 14px;">⚡ Quick Management Actions</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <button class="btn btn-outline-primary" style="justify-content: flex-start;" onclick="switchAdminTab('admin-attendance-tab')">
+                <span>➕</span> Mark Daily Attendance for a Member
+              </button>
+              <button class="btn btn-outline-primary" style="justify-content: flex-start;" onclick="openAddPlanModal()">
+                <span>🏷️</span> Add New Membership Plan
+              </button>
+              <button class="btn btn-outline-primary" style="justify-content: flex-start;" onclick="switchAdminTab('admin-members-tab')">
+                <span>🔍</span> Search & Review Member Details
+              </button>
+              <button class="btn btn-outline-primary" style="justify-content: flex-start;" onclick="switchAdminTab('admin-feedback-tab')">
+                <span>💬</span> Reply to Member Feedback & Questions
+              </button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size: 1.2rem; color: var(--color-navy); margin-bottom: 14px;">📌 System Information</h3>
+            <div style="font-size: 0.9rem; color: #475569; display: flex; flex-direction: column; gap: 10px;">
+              <div>
+                <strong>Role Enforcement:</strong>
+                <span class="badge badge-success">Backend Protected</span>
+              </div>
+              <div>
+                <strong>Database:</strong>
+                <span id="db-health-badge" class="badge badge-success">MongoDB Connected</span>
+              </div>
+              <div>
+                <strong>Payment Mode:</strong>
+                <span class="badge badge-warning">Simulated Demo Payments Only</span>
+              </div>
+              <div>
+                <strong>Security:</strong>
+                <span>Bcrypt Password Hashing & Express Session Store</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: MEMBER MANAGEMENT -->
+      <section id="admin-members-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Member Management</h1>
+            <p class="dashboard-subtitle">Search, view detailed profiles, and update status of registered gym members.</p>
+          </div>
+          <div style="display: flex; gap: 10px; width: 340px;">
+            <input type="text" id="member-search-input" class="form-control" placeholder="Search by name, username, email..." oninput="debounceMemberSearch()">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Member Name</th>
+                <th>Username</th>
+                <th>Email / Phone</th>
+                <th>Active Plan</th>
+                <th>Account Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-members-table-body">
+              <tr><td colspan="6" class="empty-state">Loading members list...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 3: MEMBERSHIP PLANS MANAGEMENT -->
+      <section id="admin-plans-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Membership Plan Management</h1>
+            <p class="dashboard-subtitle">Configure gym packages, pricing, durations, and included perks.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openAddPlanModal()">+ Add New Plan</button>
+        </div>
+
+        <div class="grid-4" id="admin-plans-grid">
+          <div class="empty-state">Loading membership plans...</div>
+        </div>
+      </section>
+
+      <!-- TAB 4: ALL MEMBERSHIPS -->
+      <section id="admin-memberships-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">All Membership Records</h1>
+            <p class="dashboard-subtitle">Review active, expired, and historical memberships across all gym members.</p>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <select id="membership-filter-status" class="form-control" style="width: 180px;" onchange="loadAdminMemberships()">
+              <option value="">All Statuses</option>
+              <option value="active">Active Only</option>
+              <option value="expired">Expired Only</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Member</th>
+                <th>Plan Name</th>
+                <th>Start Date</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-memberships-table-body">
+              <tr><td colspan="6" class="empty-state">Loading memberships...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 5: DEMO PAYMENTS -->
+      <section id="admin-payments-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Demo Payment Ledger</h1>
+            <p class="dashboard-subtitle">Complete ledger of simulated transactions processed by members.</p>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Transaction Ref</th>
+                <th>Member</th>
+                <th>Plan</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="admin-payments-table-body">
+              <tr><td colspan="7" class="empty-state">Loading demo payments...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 6: ATTENDANCE LOGGING -->
+      <section id="admin-attendance-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Attendance Management</h1>
+            <p class="dashboard-subtitle">Mark member check-ins and review recent gym access logs.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Mark Attendance Form -->
+          <div class="card">
+            <h3 style="font-size: 1.2rem; color: var(--color-navy); margin-bottom: 16px;">Record Member Check-in</h3>
+            <form id="mark-attendance-form">
+              <div class="form-group">
+                <label for="attendance-member-select">Select Member *</label>
+                <select id="attendance-member-select" class="form-control" required>
+                  <option value="">-- Choose registered member --</option>
+                </select>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="attendance-date">Check-in Date *</label>
+                  <input type="date" id="attendance-date" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="attendance-status">Status</label>
+                  <select id="attendance-status" class="form-control">
+                    <option value="Present">Present</option>
+                    <option value="Late">Late</option>
+                    <option value="Excused">Excused</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="attendance-notes">Session Notes / Workout Type</label>
+                <input type="text" id="attendance-notes" class="form-control" placeholder="e.g. Chest & Triceps / Cardio routine">
+              </div>
+
+              <button type="submit" id="mark-attendance-btn" class="btn btn-primary btn-block">
+                Mark Check-in
+              </button>
+            </form>
+          </div>
+
+          <!-- Attendance Logs -->
+          <div class="card">
+            <h3 style="font-size: 1.2rem; color: var(--color-navy); margin-bottom: 16px;">Recent Attendance Records</h3>
+            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Member</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-attendance-table-body">
+                  <tr><td colspan="4" class="empty-state">Loading attendance logs...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 7: MEMBER FEEDBACK -->
+      <section id="admin-feedback-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">User Feedback Management</h1>
+            <p class="dashboard-subtitle">Review feedback, suggestions, and send official replies to members.</p>
+          </div>
+        </div>
+
+        <div id="admin-feedback-list">
+          <div class="empty-state">Loading feedback entries...</div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL: ADD / EDIT MEMBERSHIP PLAN -->
+  <div id="plan-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="plan-modal-title">Add Membership Plan</h3>
+        <button class="modal-close" onclick="closePlanModal()">&times;</button>
+      </div>
+
+      <form id="plan-modal-form">
+        <input type="hidden" id="plan-modal-id">
+
+        <div class="form-group">
+          <label for="plan-modal-name">Plan Name *</label>
+          <input type="text" id="plan-modal-name" class="form-control" placeholder="e.g. 6 Months Elite Plan" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="plan-modal-duration">Duration (Months) *</label>
+            <input type="number" id="plan-modal-duration" class="form-control" min="1" max="36" placeholder="e.g. 6" required>
+          </div>
+          <div class="form-group">
+            <label for="plan-modal-price">Price (₹) *</label>
+            <input type="number" id="plan-modal-price" class="form-control" min="0" placeholder="e.g. 5800" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="plan-modal-desc">Short Description</label>
+          <input type="text" id="plan-modal-desc" class="form-control" placeholder="Brief plan summary">
+        </div>
+
+        <div class="form-group">
+          <label for="plan-modal-features">Features (One per line)</label>
+          <textarea id="plan-modal-features" class="form-control" rows="4" placeholder="Gym floor access&#10;Locker room&#10;1 Personal trainer session"></textarea>
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+          <input type="checkbox" id="plan-modal-popular" style="width: 18px; height: 18px;">
+          <label for="plan-modal-popular" style="margin-bottom: 0; cursor: pointer;">Mark as "Most Popular" Plan</label>
+        </div>
+
+        <div style="margin-top: 24px; display: flex; gap: 12px;">
+          <button type="button" class="btn btn-outline" style="color: var(--color-navy); border-color: var(--color-border); flex: 1;" onclick="closePlanModal()">Cancel</button>
+          <button type="submit" id="save-plan-btn" class="btn btn-primary" style="flex: 2;">Save Plan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: MEMBER DETAILS -->
+  <div id="member-details-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Member Profile & History</h3>
+        <button class="modal-close" onclick="closeMemberDetailsModal()">&times;</button>
+      </div>
+
+      <div id="member-modal-content">
+        <div class="empty-state">Loading details...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EXTEND MEMBERSHIP -->
+  <div id="extend-membership-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Extend Membership Expiry</h3>
+        <button class="modal-close" onclick="closeExtendModal()">&times;</button>
+      </div>
+
+      <form id="extend-membership-form">
+        <input type="hidden" id="extend-membership-id">
+
+        <div style="margin-bottom: 16px; padding: 12px; background: var(--color-light-grey); border-radius: var(--radius-sm);">
+          <strong id="extend-member-name">Member Name</strong>
+          <p id="extend-current-end" style="color: var(--color-muted-text); font-size: 0.9rem; margin-top: 4px;"></p>
+        </div>
+
+        <div class="form-group">
+          <label for="extend-months-select">Extend Duration By</label>
+          <select id="extend-months-select" class="form-control">
+            <option value="1">+1 Month</option>
+            <option value="3">+3 Months</option>
+            <option value="6">+6 Months</option>
+            <option value="12">+12 Months</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="extend-status-select">Set Status</label>
+          <select id="extend-status-select" class="form-control">
+            <option value="active">Active</option>
+            <option value="expired">Expired</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+
+        <div style="margin-top: 24px; display: flex; gap: 12px;">
+          <button type="button" class="btn btn-outline" style="color: var(--color-navy); border-color: var(--color-border); flex: 1;" onclick="closeExtendModal()">Cancel</button>
+          <button type="submit" id="save-extend-btn" class="btn btn-primary" style="flex: 2;">Apply Extension</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: REPLY FEEDBACK -->
+  <div id="reply-feedback-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Reply to Member Feedback</h3>
+        <button class="modal-close" onclick="closeReplyModal()">&times;</button>
+      </div>
+
+      <form id="reply-feedback-form">
+        <input type="hidden" id="reply-feedback-id">
+
+        <div style="margin-bottom: 16px; padding: 12px; background: var(--color-light-grey); border-radius: var(--radius-sm);">
+          <strong id="reply-user-name">Member</strong>
+          <p id="reply-subject" style="font-size: 0.9rem; color: var(--color-navy); margin-top: 4px;"></p>
+          <p id="reply-message" style="font-size: 0.85rem; color: #475569; margin-top: 4px;"></p>
+        </div>
+
+        <div class="form-group">
+          <label for="admin-reply-text">Official Gym Response *</label>
+          <textarea id="admin-reply-text" class="form-control" rows="4" placeholder="Enter your response to the member..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="feedback-new-status">Update Status</label>
+          <select id="feedback-new-status" class="form-control">
+            <option value="Reviewed">Reviewed</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Pending">Keep as Pending</option>
+          </select>
+        </div>
+
+        <div style="margin-top: 24px; display: flex; gap: 12px;">
+          <button type="button" class="btn btn-outline" style="color: var(--color-navy); border-color: var(--color-border); flex: 1;" onclick="closeReplyModal()">Cancel</button>
+          <button type="submit" id="send-reply-btn" class="btn btn-primary" style="flex: 2;">Submit Response</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

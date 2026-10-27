@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GymCare – Gym Membership Management System</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏋️</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="brand">
+        <span class="brand-icon">🏋️</span>
+        <span>GymCare</span>
+        <span class="brand-tag">College Project</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#facilities">Facilities</a></li>
+        <li><a href="#plans">Membership Plans</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="/admin-login.html" style="color: #93C5FD;">🛡️ Admin Portal</a></li>
+      </ul>
+
+      <div class="nav-actions" id="auth-nav-container">
+        <!-- Injected via main.js based on session -->
+        <a href="/login.html" class="btn btn-outline btn-sm">Login</a>
+        <a href="/register.html" class="btn btn-primary btn-sm">Join Now</a>
+      </div>
+
+      <button class="mobile-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-subtitle">⚡ Smart Fitness Management</span>
+        <h1 class="hero-title">Transform Your Fitness Journey with <span>GymCare</span></h1>
+        <p class="hero-desc">
+          A modern, full-stack membership and attendance management system designed for gym owners and fitness enthusiasts. Track your active memberships, manage renewals with simulated demo payments, and view your attendance records seamlessly.
+        </p>
+        <div class="hero-buttons">
+          <a href="/register.html" class="btn btn-primary btn-lg">Join GymCare Today</a>
+          <a href="#plans" class="btn btn-outline btn-lg">Explore Plans</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <h3>500+</h3>
+            <p>Active Gym Members</p>
+          </div>
+          <div class="hero-stat-item">
+            <h3>15+</h3>
+            <p>Certified Trainers</p>
+          </div>
+          <div class="hero-stat-item">
+            <h3>4</h3>
+            <p>Flexible Membership Plans</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section id="about" class="section section-bg">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">About GymCare</span>
+        <h2 class="section-title">Built for Modern Fitness Centers</h2>
+        <p class="section-subtitle">
+          GymCare bridges the gap between gym enthusiasts and administration with transparent plans, easy attendance logging, and secure digital management.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card facility-card">
+          <div class="facility-icon">🎯</div>
+          <h3>Goal-Oriented Training</h3>
+          <p>
+            Whether your target is muscle hypertrophy, fat loss, or cardiovascular endurance, our trainers create customized progressive programs.
+          </p>
+        </div>
+
+        <div class="card facility-card">
+          <div class="facility-icon">📊</div>
+          <h3>Transparent Tracking</h3>
+          <p>
+            Check your membership expiry, attendance sessions, and demo invoices anytime through your dedicated personal dashboard.
+          </p>
+        </div>
+
+        <div class="card facility-card">
+          <div class="facility-icon">🛡️</div>
+          <h3>Role-Based Security</h3>
+          <p>
+            Engineered with secure password hashing, strict authorization controls, and clean administrative auditing tools.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facilities Section -->
+  <section id="facilities" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Our Facilities</span>
+        <h2 class="section-title">World-Class Gym Amenities</h2>
+        <p class="section-subtitle">
+          Experience premium equipment, dedicated group studios, and hygienic wellness facilities.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card facility-card">
+          <div class="facility-icon">💪</div>
+          <h3>Heavy Strength & Free Weights</h3>
+          <p>Olympic barbells, calibrated plates, dumbbells up to 50kg, power racks, and specialized resistance machines.</p>
+        </div>
+
+        <div class="card facility-card">
+          <div class="facility-icon">🏃</div>
+          <h3>Cardio & Endurance Arena</h3>
+          <p>Treadmills with interactive screens, stair masters, concept-2 rowers, and assault air bikes.</p>
+        </div>
+
+        <div class="card facility-card">
+          <div class="facility-icon">🧘</div>
+          <h3>Yoga & Aerobics Studio</h3>
+          <p>Spacious, climate-controlled studio for group yoga, Zumba dance, and high-intensity interval training (HIIT).</p>
+        </div>
+
+        <div class="card facility-card">
+          <div class="facility-icon">🚿</div>
+          <h3>Steam & Locker Rooms</h3>
+          <p>Secure electronic lockers, private hot water showers, sauna, and steam therapy for post-workout recovery.</p>
+        </div>
+
+        <div class="card facility-card">
+          <div class="facility-icon">🥗</div>
+          <h3>Nutrition & Smoothie Bar</h3>
+          <p>Fresh protein shakes, pre-workout supplements, and personalized macronutrient counseling.</p>
+        </div>
+
+        <div class="card facility-card">
+          <div class="facility-icon">👨‍🏫</div>
+          <h3>1-on-1 Personal Coaching</h3>
+          <p>Certified trainers who guide your posture, motivate consistency, and monitor your monthly progress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Membership Plans Section -->
+  <section id="plans" class="section section-bg">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Membership Packages</span>
+        <h2 class="section-title">Affordable & Flexible Plans</h2>
+        <p class="section-subtitle">
+          Choose a plan that matches your fitness goals. Enjoy seamless renewals with demo payments.
+        </p>
+      </div>
+
+      <div class="grid-4" id="plans-container">
+        <!-- Rendered dynamically from backend /api/plans with static fallback -->
+        <div class="plan-card">
+          <div class="plan-header">
+            <h3 class="plan-name">1 Month Starter</h3>
+            <p class="plan-desc">Perfect for beginners testing the waters.</p>
+            <div class="plan-price-wrap">
+              <span class="plan-price">₹1,200</span>
+              <span class="plan-duration">/ 1 month</span>
+            </div>
+          </div>
+          <ul class="plan-features">
+            <li>Gym floor access</li>
+            <li>Free fitness assessment</li>
+            <li>Locker & shower facilities</li>
+          </ul>
+          <a href="/register.html" class="btn btn-outline-primary btn-block">Get Started</a>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-header">
+            <h3 class="plan-name">3 Months Pro</h3>
+            <p class="plan-desc">Build consistency and notice solid progress.</p>
+            <div class="plan-price-wrap">
+              <span class="plan-price">₹3,200</span>
+              <span class="plan-duration">/ 3 months</span>
+            </div>
+          </div>
+          <ul class="plan-features">
+            <li>Full gym & cardio floor</li>
+            <li>1 personal trainer session</li>
+            <li>Group yoga & aerobics</li>
+          </ul>
+          <a href="/register.html" class="btn btn-outline-primary btn-block">Get Started</a>
+        </div>
+
+        <div class="plan-card popular">
+          <span class="plan-badge">Most Popular</span>
+          <div class="plan-header">
+            <h3 class="plan-name">6 Months Elite</h3>
+            <p class="plan-desc">Our flagship package for true transformation.</p>
+            <div class="plan-price-wrap">
+              <span class="plan-price">₹5,800</span>
+              <span class="plan-duration">/ 6 months</span>
+            </div>
+          </div>
+          <ul class="plan-features">
+            <li>Full gym & cardio floor</li>
+            <li>3 personal trainer sessions</li>
+            <li>Unlimited group classes</li>
+            <li>Customized diet chart</li>
+            <li>Steam & sauna access</li>
+          </ul>
+          <a href="/register.html" class="btn btn-primary btn-block">Get Started</a>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-header">
+            <h3 class="plan-name">12 Months Champion</h3>
+            <p class="plan-desc">Maximum savings and VIP privileges for 1 year.</p>
+            <div class="plan-price-wrap">
+              <span class="plan-price">₹10,500</span>
+              <span class="plan-duration">/ 12 months</span>
+            </div>
+          </div>
+          <ul class="plan-features">
+            <li>365 days full access</li>
+            <li>6 personal trainer sessions</li>
+            <li>Diet & nutrition coaching</li>
+            <li>VIP locker room & steam</li>
+            <li>1 free monthly guest pass</li>
+          </ul>
+          <a href="/register.html" class="btn btn-outline-primary btn-block">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Info Section -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Get In Touch</span>
+        <h2 class="section-title">Visit GymCare or Send an Inquiry</h2>
+        <p class="section-subtitle">
+          Have questions regarding our memberships, equipment, or demo payments? We are here to help.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="font-size: 1.3rem; color: var(--color-navy); margin-bottom: 20px;">Gym Location & Hours</h3>
+          
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <strong>📍 Address (Sample):</strong>
+              <p style="color: var(--color-muted-text);">104 Fitness Boulevard, Tech City Campus, Sector 5, State 400001</p>
+            </div>
+            <div>
+              <strong>📞 Phone:</strong>
+              <p style="color: var(--color-muted-text);">+91 98765 43210 / +91 91234 56789</p>
+            </div>
+            <div>
+              <strong>✉️ Email:</strong>
+              <p style="color: var(--color-muted-text);">support@gymcare-sample.local</p>
+            </div>
+            <div>
+              <strong>⏰ Operating Hours:</strong>
+              <p style="color: var(--color-muted-text);">
+                Monday – Saturday: 6:00 AM – 10:00 PM<br>
+                Sunday: 7:00 AM – 2:00 PM
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size: 1.3rem; color: var(--color-navy); margin-bottom: 20px;">Send a Quick Inquiry</h3>
+          <form id="contact-form" onsubmit="handleInquiry(event)">
+            <div class="form-group">
+              <label for="contact-name">Your Full Name</label>
+              <input type="text" id="contact-name" class="form-control" placeholder="e.g. Rahul Sharma" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email Address</label>
+              <input type="email" id="contact-email" class="form-control" placeholder="rahul@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-msg">Message or Question</label>
+              <textarea id="contact-msg" class="form-control" placeholder="Ask about batch timings or plans..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit Inquiry</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>🏋️ GymCare</h3>
+          <p>
+            Gym Membership Management System developed as a complete 3rd Year B.Tech Computer Engineering college capstone project.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#facilities">Facilities</a></li>
+            <li><a href="#plans">Plans</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Portals</h4>
+          <ul class="footer-links">
+            <li><a href="/login.html">Member Login</a></li>
+            <li><a href="/register.html">Member Registration</a></li>
+            <li><a href="/admin-login.html">Admin Portal</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>College Project Info</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6; color: #94A3B8;">
+            Technology: Node.js, Express, MongoDB, Mongoose, HTML5, CSS3, Vanilla JS.<br>
+            Includes demo payment simulation.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 GymCare Management System. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Dynamically load plans from the backend API if available
+    async function loadDynamicPlans() {
+      try {
+        const res = await fetch('/api/plans');
+        const data = await res.json();
+        if (data.success && data.plans && data.plans.length > 0) {
+          const container = document.getElementById('plans-container');
+          container.innerHTML = data.plans.map(p => `
+            <div class="plan-card ${p.popular ? 'popular' : ''}">
+              ${p.popular ? '<span class="plan-badge">Most Popular</span>' : ''}
+              <div class="plan-header">
+                <h3 class="plan-name">${p.name}</h3>
+                <p class="plan-desc">${p.description || 'Full gym facility access.'}</p>
+                <div class="plan-price-wrap">
+                  <span class="plan-price">${formatCurrency(p.price)}</span>
+                  <span class="plan-duration">/ ${p.durationMonths} ${p.durationMonths === 1 ? 'month' : 'months'}</span>
+                </div>
+              </div>
+              <ul class="plan-features">
+                ${p.features && p.features.length > 0
+                  ? p.features.map(f => `<li>${f}</li>`).join('')
+                  : '<li>Full gym access</li>'}
+              </ul>
+              <a href="/register.html" class="btn ${p.popular ? 'btn-primary' : 'btn-outline-primary'} btn-block">Get Started</a>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.log('Using static plans markup fallback:', err);
+      }
+    }
+    loadDynamicPlans();
+
+    function handleInquiry(e) {
+      e.preventDefault();
+      showToast('Thank you! Your inquiry has been noted. Our team will contact you shortly.', 'success');
+      document.getElementById('contact-form').reset();
+    }
+  </script>
+</body>
+</html>

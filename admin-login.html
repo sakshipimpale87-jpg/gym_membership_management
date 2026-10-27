@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal Login – GymCare</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+</head>
+<body style="background-color: #07162b;">
+
+  <!-- Navbar -->
+  <nav class="navbar" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+    <div class="container nav-container">
+      <a href="/" class="brand">
+        <span class="brand-icon" style="background-color: #1E293B;">🛡️</span>
+        <span>GymCare Admin</span>
+      </a>
+      <div>
+        <a href="/" class="btn btn-outline btn-sm">← Back to Main Site</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="form-card" style="margin-top: 60px; border-top: 4px solid var(--color-primary); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+      <div class="form-header">
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">🛡️</div>
+        <h2>GymCare Admin Portal</h2>
+        <p>Restricted access for authorized gym staff & system administrators.</p>
+      </div>
+
+      <div id="alert-box" class="alert"></div>
+
+      <form id="admin-login-form" novalidate>
+        <div class="form-group">
+          <label for="admin-identifier">Administrator Username / Email</label>
+          <input type="text" id="admin-identifier" class="form-control" placeholder="Enter admin username (e.g. admin)" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label for="admin-password">Administrator Password</label>
+          <input type="password" id="admin-password" class="form-control" placeholder="Enter password" required>
+        </div>
+
+        <button type="submit" id="admin-login-submit-btn" class="btn btn-navy btn-block btn-lg" style="margin-top: 10px;">
+          Authenticate as Admin
+        </button>
+      </form>
+
+      <div style="margin-top: 24px; padding: 14px; background-color: var(--color-light-grey); border-radius: var(--radius-sm); font-size: 0.85rem; color: #475569; border-left: 3px solid var(--color-primary);">
+        <strong>College Project Demo Credentials:</strong><br>
+        Username: <code>admin</code><br>
+        Password: <code>Admin@12345</code><br>
+        <small style="color: #64748B;">Configured via <code>.env</code> and initialized with <code>npm run seed:admin</code>.</small>
+      </div>
+
+      <div style="text-align: center; margin-top: 20px; font-size: 0.9rem;">
+        Looking for member login? <a href="/login.html">Member Portal →</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

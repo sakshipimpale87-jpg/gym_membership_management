@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Dashboard – GymCare</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏋️</text></svg>">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/user-dashboard.html" class="brand">
+        <span class="brand-icon">🏋️</span>
+        <span>GymCare</span>
+        <span class="brand-tag">Member Portal</span>
+      </a>
+
+      <div class="nav-actions">
+        <span id="nav-user-greeting" style="font-size: 0.9rem; color: #E2E8F0; margin-right: 8px;"></span>
+        <a href="/" class="btn btn-outline btn-sm">Home</a>
+        <button onclick="handleLogout()" class="btn btn-danger btn-sm">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Container -->
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-header">
+          <p class="sidebar-user">Logged in as:</p>
+          <h3 class="sidebar-name" id="sidebar-name">Loading...</h3>
+          <span class="badge badge-info" id="sidebar-role">Member</span>
+        </div>
+
+        <ul class="sidebar-nav">
+          <li>
+            <button class="tab-btn active" data-tab="overview-tab">
+              <span>📊</span> Overview & Membership
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="plans-tab">
+              <span>💳</span> Membership Plans
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="payments-tab">
+              <span>🧾</span> Payment History
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="attendance-tab">
+              <span>📅</span> Attendance Log
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="feedback-tab">
+              <span>💬</span> Feedback & Support
+            </button>
+          </li>
+          <li>
+            <button class="tab-btn" data-tab="profile-tab">
+              <span>👤</span> Profile Settings
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div style="font-size: 0.8rem; color: #64748B; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+        GymCare System v1.0<br>
+        B.Tech College Project
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- TAB 1: OVERVIEW & MEMBERSHIP -->
+      <section id="overview-tab" class="dashboard-tab active">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title" id="welcome-title">Welcome to GymCare!</h1>
+            <p class="dashboard-subtitle">Monitor your active fitness plan, attendance streak, and recent billing.</p>
+          </div>
+          <button class="btn btn-primary" onclick="switchTab('plans-tab')">
+            + Purchase / Renew Membership
+          </button>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Membership Status</p>
+              <h3 id="stat-membership-status"><span class="badge badge-warning">Checking...</span></h3>
+            </div>
+            <div class="stat-icon blue">🏋️</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Days Remaining</p>
+              <h3 id="stat-days-remaining">0 Days</h3>
+            </div>
+            <div class="stat-icon green">⏳</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Total Payments</p>
+              <h3 id="stat-total-payments">₹0</h3>
+            </div>
+            <div class="stat-icon orange">💳</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Attendance Days</p>
+              <h3 id="stat-total-attendance">0</h3>
+            </div>
+            <div class="stat-icon navy">✅</div>
+          </div>
+        </div>
+
+        <!-- Active Membership Card -->
+        <div class="card" style="margin-bottom: 30px;">
+          <h2 style="font-size: 1.25rem; color: var(--color-navy); margin-bottom: 16px;">Current Membership Details</h2>
+          <div id="active-membership-details">
+            <div class="empty-state">
+              <div class="empty-state-icon">📋</div>
+              <h3>No Active Membership Found</h3>
+              <p>You have not subscribed to an active gym plan yet.</p>
+              <button class="btn btn-primary" style="margin-top: 14px;" onclick="switchTab('plans-tab')">
+                Browse Membership Plans
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Summary Grid -->
+        <div class="grid-2">
+          <!-- Recent Payments Snippet -->
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <h3 style="font-size: 1.15rem; color: var(--color-navy);">Recent Payments</h3>
+              <button class="btn btn-sm btn-outline-primary" onclick="switchTab('payments-tab')">View All</button>
+            </div>
+            <div id="overview-recent-payments">Loading payments...</div>
+          </div>
+
+          <!-- Recent Attendance Snippet -->
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <h3 style="font-size: 1.15rem; color: var(--color-navy);">Recent Attendance</h3>
+              <button class="btn btn-sm btn-outline-primary" onclick="switchTab('attendance-tab')">View All</button>
+            </div>
+            <div id="overview-recent-attendance">Loading attendance logs...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: AVAILABLE PLANS & RENEWAL -->
+      <section id="plans-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Membership Plans</h1>
+            <p class="dashboard-subtitle">Select a plan to subscribe or extend your active gym membership.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 24px; background: #EFF6FF; border-color: #BFDBFE;">
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <span style="font-size: 1.5rem;">💡</span>
+            <div>
+              <strong style="color: #1E40AF;">Simulated Demo Payment Notice:</strong>
+              <p style="font-size: 0.9rem; color: #1E3A8A; margin-top: 2px;">
+                This project implements a <strong>simulated payment workflow</strong> for college demonstration purposes. You can select your desired payment method (Demo UPI, NetBanking, Card, or Cash) to experience immediate automatic activation without spending real money.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-4" id="member-plans-grid">
+          <!-- Dynamically populated -->
+          <div class="empty-state">Loading available plans...</div>
+        </div>
+      </section>
+
+      <!-- TAB 3: PAYMENT HISTORY -->
+      <section id="payments-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Payment History</h1>
+            <p class="dashboard-subtitle">All your simulated demo payment transactions and invoices.</p>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Transaction Ref</th>
+                <th>Plan Name</th>
+                <th>Amount</th>
+                <th>Payment Mode</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="payments-table-body">
+              <tr>
+                <td colspan="6" class="empty-state">Loading payment history...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 4: ATTENDANCE HISTORY -->
+      <section id="attendance-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">My Attendance History</h1>
+            <p class="dashboard-subtitle">Review your recorded workout sessions logged by gym staff.</p>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Day</th>
+                <th>Status</th>
+                <th>Notes / Session</th>
+              </tr>
+            </thead>
+            <tbody id="attendance-table-body">
+              <tr>
+                <td colspan="4" class="empty-state">Loading attendance records...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 5: FEEDBACK & SUPPORT -->
+      <section id="feedback-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Member Feedback & Support</h1>
+            <p class="dashboard-subtitle">Share your suggestions, report equipment issues, or ask questions.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Submit Feedback Form -->
+          <div class="card">
+            <h3 style="font-size: 1.2rem; color: var(--color-navy); margin-bottom: 16px;">Send Feedback</h3>
+            <form id="feedback-form">
+              <div class="form-group">
+                <label for="feedback-subject">Subject *</label>
+                <input type="text" id="feedback-subject" class="form-control" placeholder="e.g. Cleanliness or new dumbbell request" required>
+              </div>
+
+              <div class="form-group">
+                <label for="feedback-rating">Rating (1 to 5 Stars)</label>
+                <select id="feedback-rating" class="form-control">
+                  <option value="5">⭐⭐⭐⭐⭐ 5 - Excellent Experience</option>
+                  <option value="4">⭐⭐⭐⭐ 4 - Very Good</option>
+                  <option value="3">⭐⭐⭐ 3 - Average / Satisfactory</option>
+                  <option value="2">⭐⭐ 2 - Needs Improvement</option>
+                  <option value="1">⭐ 1 - Poor</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="feedback-message">Message *</label>
+                <textarea id="feedback-message" class="form-control" rows="4" placeholder="Type your detailed message here..." required></textarea>
+              </div>
+
+              <button type="submit" id="feedback-submit-btn" class="btn btn-primary btn-block">
+                Submit Feedback
+              </button>
+            </form>
+          </div>
+
+          <!-- Previous Feedback & Admin Replies -->
+          <div class="card">
+            <h3 style="font-size: 1.2rem; color: var(--color-navy); margin-bottom: 16px;">My Submitted Feedback</h3>
+            <div id="feedback-history-list">
+              <div class="empty-state">Loading your feedback history...</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: PROFILE SETTINGS -->
+      <section id="profile-tab" class="dashboard-tab" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="dashboard-title">Profile Settings</h1>
+            <p class="dashboard-subtitle">Manage your personal gym member details.</p>
+          </div>
+        </div>
+
+        <div class="card" style="max-width: 650px;">
+          <form id="profile-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Username (Fixed)</label>
+                <input type="text" id="profile-username" class="form-control" disabled style="background-color: #E2E8F0; cursor: not-allowed;">
+              </div>
+              <div class="form-group">
+                <label>Email Address (Fixed)</label>
+                <input type="email" id="profile-email" class="form-control" disabled style="background-color: #E2E8F0; cursor: not-allowed;">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="profile-fullName">Full Name</label>
+              <input type="text" id="profile-fullName" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label for="profile-phone">Phone Number</label>
+              <input type="tel" id="profile-phone" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label for="profile-address">Address</label>
+              <input type="text" id="profile-address" class="form-control" required>
+            </div>
+
+            <button type="submit" id="profile-save-btn" class="btn btn-primary">
+              Save Changes
+            </button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- DEMO PAYMENT MODAL -->
+  <div id="demo-payment-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">💳 Simulated Demo Payment</h3>
+        <button class="modal-close" onclick="closeDemoPaymentModal()">&times;</button>
+      </div>
+
+      <div style="background-color: #FEF3C7; border-left: 4px solid #F59E0B; padding: 12px; margin-bottom: 20px; border-radius: var(--radius-sm); font-size: 0.88rem; color: #92400E;">
+        <strong>College Demonstration System:</strong><br>
+        This is a simulated transaction. No banking credentials, OTPs, or real funds are collected.
+      </div>
+
+      <div style="margin-bottom: 20px; padding: 16px; background-color: var(--color-light-grey); border-radius: var(--radius-md);">
+        <p style="font-size: 0.85rem; color: var(--color-muted-text); text-transform: uppercase; font-weight: 700;">Selected Plan</p>
+        <h4 id="modal-plan-name" style="font-size: 1.3rem; color: var(--color-navy); margin: 4px 0;">--</h4>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px;">
+          <span id="modal-plan-duration" style="font-size: 0.95rem; color: var(--color-muted-text);">--</span>
+          <span id="modal-plan-price" style="font-size: 1.6rem; font-weight: 800; color: var(--color-primary);">--</span>
+        </div>
+      </div>
+
+      <form id="demo-payment-form">
+        <input type="hidden" id="modal-plan-id">
+
+        <div class="form-group">
+          <label for="payment-method">Select Demo Payment Method</label>
+          <select id="payment-method" class="form-control">
+            <option value="Demo UPI">📱 Demo UPI (GPay / PhonePe / Paytm Simulation)</option>
+            <option value="Demo NetBanking">🏦 Demo NetBanking Simulation</option>
+            <option value="Demo Card">💳 Demo Debit / Credit Card Simulation</option>
+            <option value="Demo Cash / Front Desk">💵 Demo Cash at Gym Reception</option>
+          </select>
+        </div>
+
+        <div style="margin-top: 24px; display: flex; gap: 12px;">
+          <button type="button" class="btn btn-outline" style="color: var(--color-navy); border-color: var(--color-border); flex: 1;" onclick="closeDemoPaymentModal()">Cancel</button>
+          <button type="submit" id="confirm-pay-btn" class="btn btn-success" style="flex: 2;">Confirm Demo Payment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/user-dashboard.js"></script>
+</body>
+</html>
